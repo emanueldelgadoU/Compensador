@@ -1,0 +1,103 @@
+<form action="">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-6">
+        <h1>AP</h1>
+        <h3>Cuentas a pagar (C debe a proveedor)</h3>
+
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>
+                  <input type="checkbox" (change)="seleccionarTodasFacturasIzquierda($event)" />
+                  <span>Select All</span>
+                </th>
+                <th>Invoice Number</th>
+                <th>Invoice Date</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let invoice of itemInvoices">
+                <td>
+                  <input type="checkbox" [checked]="invoice.selected" (change)="invoice.selected = !invoice.selected" />
+                </td>
+                <td>{{ invoice.invoiceNum }}</td>
+                <td>{{ invoice.invoiceDate }}</td>
+                <td>{{ invoice.amount }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <table class="table table-minimalist">
+          <tr>
+            <th>Total A/P</th>
+            <td>{{ calcularTotalAmount() }}</td>
+          </tr>
+          <tr>
+            <th>Subtotal seleccionadas</th>
+            <td>{{ calcularSubtotalIzquierda() }}</td>
+          </tr>
+          <tr>
+            <th>Balance a pagar</th>
+            <td>{{ balancePagar() }}</td>
+          </tr>
+        </table>
+      </div>
+
+      <div class="col-md-6">
+        <h1>AR</h1>
+        <h3>Cuentas a cobrar (proveedor debe a C)</h3>
+
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>
+                  <input type="checkbox" (change)="seleccionarTodasFacturasDerecha($event)" />
+                  <span>Select All</span>
+                </th>
+                <th>Invoice Number</th>
+                <th>Invoice Date</th>
+                <th>Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let invoice of secondItemInvoices">
+                <td>
+                  <input type="checkbox" [checked]="invoice.selected" (change)="invoice.selected = !invoice.selected" />
+                </td>
+                <td>{{ invoice.invoiceNum }}</td>
+                <td>{{ invoice.invoiceDate }}</td>
+                <td>{{ invoice.amount }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <table class="table table-minimalist">
+          <tr>
+            <th>Total A/R</th>
+            <td>{{ calcularImporteTotalDerecha() }}</td>
+          </tr>
+          <tr>
+            <th>Subtotal seleccionadas</th>
+            <td>{{ igualarCompensacion() }}</td>
+          </tr>
+          <tr>
+            <th>Remanente por compensar</th>
+            <td>{{ remanenteCopensar() }}</td>
+          </tr>
+          <tr>
+            <th>Balance</th>
+            <td>{{ balance() }}</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+  </div>
+  <button class="btn btn-primary" (click)="enviarBack()">Enviar</button>
+</form>
+
